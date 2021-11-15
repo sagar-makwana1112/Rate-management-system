@@ -15,7 +15,7 @@ This application is rate management system.
   
 ## Database configuration
 - Create Database in MySql and name is Test.
-- Update username and password for MySql database connection.
+- Update username and password for MySql database connection in application.properties file.
 
 ## Login Details
 - In this application Basic authentication is implemented.
