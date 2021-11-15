@@ -11,7 +11,6 @@ This application is rate management system.
 - Run one more command in command prompt mvn clean install (Note: it will execute with Test class) if we need to ignore test class then run mvn clean install -DskipTests.
 - Import project in STS or eclipse.
 - Make sure 8080 port is free if not then change port using application.properties file and add new property server.port=<port number> ex: server.port=9090.
-- Then after run application as per STS select project right click -> Run as -> Java application.
   
 ## Database configuration
 - Create Database in MySql and name is Test.
@@ -44,3 +43,6 @@ This application is rate management system.
     }
 - URL = /surcharge/{id}, Method = DELETE to delete rate detail and id is id of rate. Response status code = No Content(204) if success.
   
+## Run Step
+- STS or Eclipse = Select project -> Right click -> Select Run As -> Select Java application or Spring boot app.
+- Command Line = go to folder of where war file is placed and execute command = mvn spring-boot:run
