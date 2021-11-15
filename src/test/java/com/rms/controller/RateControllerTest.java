@@ -16,6 +16,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -30,6 +31,7 @@ import com.rms.vo.SurchargeVatVO;
 @RunWith(SpringRunner.class)
 @WebMvcTest(RateController.class)
 @WithMockUser(username = "test", password = "test", roles = "ADMIN")
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class RateControllerTest {
 
     @Autowired
