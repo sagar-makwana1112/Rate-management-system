@@ -23,9 +23,9 @@ This application is rate management system.
 - Username = user1 and password = user1
 
 ## Rest calls
-- URL = /surcharges, Method = GET to get all surcharges details.
-- URL = /surcharge/{id}, Method = GET to get specific surcharges details of rate and id is id of rate.
-- URL = /surcharge, Method = POST to save details of rate.
+- URL = /surcharges, Method = GET to get all surcharges details. Response status code = OK(200) if success.
+- URL = /surcharge/{id}, Method = GET to get specific surcharges details of rate and id is id of rate. Response status code = OK(200) if success.
+- URL = /surcharge, Method = POST to save details of rate. Response status code = CREATED(201) if success.
   - Request body :
     {
       "rateDescription": "Rate Description 2",
@@ -33,7 +33,7 @@ This application is rate management system.
       "rateExpirationDate": "2021-11-11",
       "amount": 200
     }
-- URL = /surcharge, Method = PUT to update rate details.
+- URL = /surcharge, Method = PUT to update rate details. Response status code = No Content(204) if success.
   - Request body : 
     {
       "id":1,
@@ -42,5 +42,5 @@ This application is rate management system.
       "rateExpirationDate": "2021-11-14",
       "amount": 300
     }
-- URL = /surcharge/{id}, Method = DELETE to delete rate detail and id is id of rate.
+- URL = /surcharge/{id}, Method = DELETE to delete rate detail and id is id of rate. Response status code = No Content(204) if success.
   
