@@ -16,6 +16,9 @@ This application is rate management system.
 - Create Database in MySql and name is Test.
 - Update username and password for MySql database connection in application.properties file.
 
+## Log configuration
+- Change the path of the log file into the logback.xml file.
+
 ## Login Details
 - In this application Basic authentication is implemented.
 - Username = test and password = test
