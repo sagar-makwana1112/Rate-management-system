@@ -14,6 +14,9 @@ This application is rate management system.
 - Create Database in MySql and name is Test.
 - Update username and password for MySql database connection in application.properties file.
 
+## Log configuration
+- Change path of log file into logback.xml file.
+
 ## Login Details
 - In this application Basic authentication is implemented.
 - Username = test and password = test
@@ -44,3 +47,4 @@ This application is rate management system.
 ## Run Step
 - STS or Eclipse = Select project -> Right click -> Select Run As -> Select Java application or Spring boot app.
 - Command Line = go to folder of where war file is placed and execute command = mvn spring-boot:run
+
