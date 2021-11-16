@@ -15,7 +15,7 @@ This application is rate management system.
 - Update username and password for MySql database connection in application.properties file.
 
 ## Log configuration
-- Change path of log file into logback.xml file.
+- Change the path of the log file into the logback.xml file.
 
 ## Login Details
 - In this application Basic authentication is implemented.
