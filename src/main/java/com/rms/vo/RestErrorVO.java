@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * VO for readable error throw from server.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

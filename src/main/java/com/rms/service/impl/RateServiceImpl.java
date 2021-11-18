@@ -1,7 +1,7 @@
 package com.rms.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -10,15 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import com.rms.dao.RateDao;
 import com.rms.entity.RateEntity;
 import com.rms.exception.SaveUpdateEntityException;
+import com.rms.helper.BeeceptorHelper;
 import com.rms.service.RateService;
 import com.rms.vo.RateSurchargeVO;
 import com.rms.vo.RateVO;
-import com.rms.vo.SurchargeVatVO;
 
 /**
  * Rate Service implementation.
@@ -36,12 +35,15 @@ public class RateServiceImpl implements RateService {
     @Autowired
     private RateDao rateDao;
 
+    @Autowired
+    private BeeceptorHelper beeceptorHelper;
+
     @Override
     public List<RateSurchargeVO> getAllRates() {
-        List<RateVO> rateVOs = new ArrayList<>();
-        rateDao.findAll().forEach(rate -> rateVOs.add(RateVO.toRateVO(rate)));
-        log.debug("Total rate found is : {}", rateVOs.size());
-        return getSurchargeDetail().calculateSurchrgeOnRates(rateVOs);
+        List<RateEntity> rateEntities = rateDao.findByOrderByIdAsc();
+        log.debug("Total rate found is : {}", rateEntities.size());
+        List<RateVO> rateVOs = rateEntities.parallelStream().map(RateVO::toRateVO).collect(Collectors.toList());
+        return beeceptorHelper.getSurchargeDetail().calculateSurchrgeOnRates(rateVOs);
     }
 
     @Override
@@ -51,7 +53,7 @@ public class RateServiceImpl implements RateService {
             rateDao.save(rateEntity);
             log.debug("Rate is saved : {}", rateEntity);
             rateVO = RateVO.toRateVO(rateEntity);
-            return getSurchargeDetail().calculateSurchargeOnRate(rateVO);
+            return beeceptorHelper.getSurchargeDetail().calculateSurchargeOnRate(rateVO);
         } catch (Exception e) {
             throw new SaveUpdateEntityException(INTERNAL_SERVER_ERROR_PLEASE_CONTACT_ADMIN_MESSAGE);
         }
@@ -63,7 +65,7 @@ public class RateServiceImpl implements RateService {
         if (entity == null) {
             throw new EntityNotFoundException(RATE_ID_NOT_FOUND_IN_RMS_MESSAGE);
         }
-        return getSurchargeDetail().calculateSurchargeOnRate(RateVO.toRateVO(entity));
+        return beeceptorHelper.getSurchargeDetail().calculateSurchargeOnRate(RateVO.toRateVO(entity));
     }
 
     @Override
@@ -76,7 +78,7 @@ public class RateServiceImpl implements RateService {
             RateEntity rateEntity = RateEntity.toRateEntity(rateVO);
             rateDao.save(rateEntity);
             log.debug("Rate is saved : {}", rateEntity);
-            return getSurchargeDetail().calculateSurchargeOnRate(RateVO.toRateVO(rateEntity));
+            return beeceptorHelper.getSurchargeDetail().calculateSurchargeOnRate(RateVO.toRateVO(rateEntity));
         } catch (Exception e) {
             throw new SaveUpdateEntityException(INTERNAL_SERVER_ERROR_PLEASE_CONTACT_ADMIN_MESSAGE);
         }
@@ -89,17 +91,6 @@ public class RateServiceImpl implements RateService {
             throw new EntityNotFoundException(RATE_ID_NOT_FOUND_IN_RMS_MESSAGE);
         }
         rateDao.deleteById(id);
-    }
-
-    public SurchargeVatVO getSurchargeDetail() {
-        log.debug("Calling rest call for getting surcharge details");
-        try {
-            return new RestTemplate().getForObject("https://surcharge.free.beeceptor.com/surcharge",
-                    SurchargeVatVO.class);
-        } catch (Exception e) {
-            log.debug("Exception while getting surcharge details");
-            return new SurchargeVatVO(200, 50);
-        }
     }
 
 }

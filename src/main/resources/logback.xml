@@ -74,8 +74,11 @@
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="SAVE-TO-FILE" />
 	</logger>
+	
+	<logger name="com.rms.helper.BeeceptorHelper"
+		additivity="false" level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="SAVE-TO-FILE" />
+	</logger>
 
-	<!--<logger name="org.springframework.boot.SpringApplication" level="debug"> -->
-	<!--<appender-ref ref="STDOUT" /> -->
-	<!--</logger> -->
 </configuration>

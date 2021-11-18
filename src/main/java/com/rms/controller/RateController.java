@@ -21,14 +21,15 @@ import com.rms.vo.RateVO;
  * Manage rest call for rate management system.
  */
 @RestController
-// @DefaultProperties(
-// commandProperties = {
-// @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")},
-// defaultFallback = "com.rms.handler.HystrinxFallbackHandler.requestTimeOutHandler")
 public class RateController {
 
     @Autowired
     private RateService rateService;
+
+    @GetMapping("/test")
+    public String welcome() {
+        return "Welcome rate management system";
+    }
 
     /**
      * Get all surcharges.
