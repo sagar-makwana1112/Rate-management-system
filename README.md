@@ -45,7 +45,10 @@ This application is rate management system.
       "amount": 300
     }
 - URL = /surcharge/{id}, Method = DELETE to delete rate detail and id is id of rate. Response status code = No Content(204) if success.
-  
+
+## Circuit breaker (resilience4j)
+- Change required configuration in application.properties for resilience4j (https://resilience4j.readme.io/docs)
+
 ## Run Step
 - STS or Eclipse = Select project -> Right click -> Select Run As -> Select Java application or Spring boot app.
 - Command Line = go to folder of where war file is placed and execute command = mvn spring-boot:run
